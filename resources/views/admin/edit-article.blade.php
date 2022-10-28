@@ -51,26 +51,39 @@
                   <div class="form-group">
                     <label for="exampleInputFile">Image</label>
                     @php
+                    $var = 'true';
 					$path = $articles->featured_image;
-					if(strpos($path, "https://") !== false){
+					if(strpos($path, "https://") == false && strpos($path, "https://") != ''){
+                        //die('hhu');
 						$imgscr = $articles->featured_image;
+                        $var = 'false';
 					}else{
+                        //die('jijj');
 						if (file_exists( "images/".$articles->id."/".$path)){
 							$imgscr = "/images/".$articles->id."/".$path;
+                            $var = 'true';
 						}
 					}
 					@endphp
-					<img src="{{$imgscr}}" id="cropbox" class="img" style="width:250px;">
-
+                    <div class="form_img">
+                    <?php
+                    //echo $var; die;
+                    if($var == 'true'){
+                        $imgg = json_decode($articles->featured_image, true);
+                        foreach($imgg as $img){
+                            $imgscrrr = "/images/".$articles->id."/".$img;
+                        ?>
+                        <img src="{{$imgscrrr}}" id="cropbox" class="img" style="width:250px;">
+                    <?php
+                        }
+                    }if($var == 'false'){
+                    ?>
+                        <img src="{{$imgscr}}" id="cropbox" class="img" style="width:250px;">
+                    <?php
+                    }
+                    ?>
+                    </div>
                   </div>
-                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input name="articleimage" type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                    </div>
-                    </div>
                 </div>
                 <!-- /.card-body -->
 
@@ -89,3 +102,24 @@
         </div>
     </section>
 @endsection
+<style>
+.form-group label {
+    display: block;
+}
+.form_img {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.form_img img {
+    width: 157px !important;
+    margin-top: 10px;
+    margin-right: 5px;
+    height: 100px;
+    object-fit: cover;
+}
+.card-footer {
+    padding: 0.2em 1.25rem !important;
+}
+</style>
