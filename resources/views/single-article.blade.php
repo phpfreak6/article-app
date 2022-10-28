@@ -9,7 +9,7 @@
     <div class="blog-single-gall">
         <?php
         $path = $article->featured_image;
-        if(strpos($path, "https://") == false){
+        if(strpos($path, "https://") !== 0){
             $imgg = json_decode($article->featured_image, true);
             foreach($imgg as $img){
                 $imgscr = "/images/".$article->id."/".$img;
