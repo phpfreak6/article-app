@@ -72,11 +72,12 @@ class ArticlesController extends Controller
         $articles = Articles::find($request->input('updateid'));
         //echo '<pre>'; print_r($request->all()); die;
         if($request->input('name') != ''){
-            $imgname = $request->file('articleimage')->getClientOriginalName();
+            //$imgname = $request->file('articleimage')->getClientOriginalName();
             $articles->name = $request->input('name');
             $articles->descriptions = $request->input('descriptions');
             $id = $request->input('updateid');
-            $uploadpath   = public_path('images/' . $id);
+            $articles->save();
+            /*$uploadpath   = public_path('images/' . $id);
             if(is_file($uploadpath.'/'.$articles->featured_image)){
                 unlink($uploadpath.'/'.$articles->featured_image);
             }
@@ -86,7 +87,7 @@ class ArticlesController extends Controller
             if (!is_dir($uploadpath)) {
                 mkdir(public_path('images/' . $id));
             }
-            $request->articleimage->move($uploadpath, $imgname);
+            $request->articleimage->move($uploadpath, $imgname);*/
             return redirect('admin/articles')->withSuccess("Article saved!");
         }else{
             return view('admin.articles');
