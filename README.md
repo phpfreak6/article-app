@@ -1,6 +1,6 @@
 ## Installation
 1) Create database.
-2) Clone repository
+2) Clone code using git
 3) Set valid database credentials of env variables DB_DATABASE, DB_USERNAME, and DB_PASSWORD
 4) php artisan migrate
 5) php artisan db:seed
